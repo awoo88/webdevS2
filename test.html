@@ -1,0 +1,116 @@
+<html>
+
+<head>
+  <!-- Material Design Lite -->
+  <script src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+  <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
+  <!-- Material Design icon font -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+
+  <style>
+    .screen {
+      display: none;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Always shows a header, even in smaller screens. -->
+  <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+    <header class="mdl-layout__header">
+      <div class="mdl-layout__header-row">
+        <!-- Title -->
+        <span class="mdl-layout-title">Title</span>
+        <!-- Add spacer, to align navigation to the right -->
+        <div class="mdl-layout-spacer"></div>
+        <!-- Navigation. We hide it in small screens. -->
+        <nav class="mdl-navigation mdl-layout--large-screen-only">
+        </nav>
+      </div>
+    </header>
+    <div class="mdl-layout__drawer">
+      <span class="mdl-layout-title">Title</span>
+      <nav class="mdl-navigation">
+        <a id="link1" class="mdl-navigation__link" href="#">Screen 1</a>
+        <a class="mdl-navigation__link" href=""></a>
+      </nav>
+    </div>
+    <main class="mdl-layout__content">
+      <div id="screen1" class="screen page-content">
+        <h1>Bus Tracker</h1>
+
+        <div id=Westbound>
+          <div id=Eastbound>
+            <div id=Northbound>
+              <div id=Southbound>
+
+
+                <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+                <script>
+                  /* global $*/
+
+                  $(function() {
+
+
+                    var apiPassThruUrl = "https://polar-garden-75406.herokuapp.com/apiPassThru.php";
+
+                    var apiEndpoint = "http://ctabustracker.com/bustime/api/v2/getpredictions";
+
+
+                    $.ajax({
+                      url: apiPassThruUrl,
+                      dataType: "json",
+                      method: 'GET',
+                      data: {
+                        "apiEndpoint": apiEndpoint,
+                        "key": "n5vhYbxEaPZH3yG48DtVZcrqW",
+                        "format": "json",
+                        "rt": "152,49",
+                        "stpid": "12525,12571,8417,8195",
+                      }
+                    }).done(function(data) {
+                      console.log(data["bustime-response"]["prd"]);
+
+                      $.each(data["bustime-response"]["prd"], function(i, v) {
+                        $("#" + v.rtdir).append("Route #" +
+                          v.rt +
+                          "<br>" +
+                          "Stop Id: " +
+                          v.stpid +
+                          "<br>" +
+                          "Stopping at: " +
+                          v.stpnm +
+                          "<br>" +
+                          "Predicted Time: " +
+                          v.prdctdn +
+                          " minutes" +
+                          "<br>" +
+                          "<br>" +
+                          "</h2>"
+                        );
+                      });
+
+                    });
+                  });
+                </script>
+              </div>
+              <div id="s creen2" class="screen page-content">
+                <div id="screen3" class="screen page-content">
+                </div>
+    </main>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script>
+      $(function() {
+        $("#screen1").show();
+
+        $("#link1").on("click", function() {
+          $(".screen").hide();
+          $("#screen1").show();
+        });
+      });
+    </script>
+</body>
+
+</html>

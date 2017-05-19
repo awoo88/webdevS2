@@ -10,8 +10,6 @@
     <style>
       .screen {display: none;}
     </style>
-
-
   </head>
   <body>
     <!-- Always shows a header, even in smaller screens. -->
@@ -24,10 +22,10 @@
           <div class="mdl-layout-spacer"></div>
           <!-- Navigation. We hide it in small screens. -->
           <nav class="mdl-navigation mdl-layout--large-screen-only">
-            <a class="mdl-navigation__link" href="">Link</a>
-            <a class="mdl-navigation__link" href="">Link</a>
-            <a class="mdl-navigation__link" href="">Link</a>
-            <a class="mdl-navigation__link" href="">Link</a>
+            <a class="mdl-navigation__link" href=""></a>
+            <a class="mdl-navigation__link" href=""></a>
+            <a class="mdl-navigation__link" href=""></a>
+            <a class="mdl-navigation__link" href=""></a>
           </nav>
         </div>
       </header>
@@ -37,7 +35,7 @@
           <a id="link1" class="mdl-navigation__link" href="#">Screen 1</a>
           <a id="link2" class="mdl-navigation__link" href="#">Screen 2</a>
           <a id="link3" class="mdl-navigation__link" href="#">Screen 3</a>
-          <a class="mdl-navigation__link" href="">Link</a>
+          <a class="mdl-navigation__link" href=""></a>
         </nav>
       </div>
       <main class="mdl-layout__content">
@@ -91,7 +89,7 @@
                                     +"<br>"
                                     +(value.byline.original)
                                     + "<br>"
-                                    +"Lead paragraph:"
+                                    +"Lead paragraph: "
                                     +(value.lead_paragraph)
                                     +"<br>"
                                     +'<a href="'+(value.web_url)+'">Link to Review</a>'
@@ -107,11 +105,71 @@
             });
     </script>
         </div>
-        <div id="screen2" class="screen page-content"><h1>Screen 2</h1>
-        <p>Testing</p>
+        <div id="screen2" class="screen page-content"><h1><a href="https://awoo88.github.io/webdevs2/labs/8/index.html"> Click this!  </a></h1>
+         <p>This is just be a link that will redirect you to a webpage of an experimental airhorn that is possibly going to be annoying after a few clicks.</p>       
         </div>
-        <div id="screen3" class="screen page-content"><h1><a href="https://awoo88.github.io/webdevs2/labs/8/index.html"> Click this!  </a></h1>
-        <p>Warning! This may or may not be a virus that will change ur screen to an annoying airhorn or it will just be a link that will redirect you to a webpage of an annoying airhorn</p>
+  
+        <div id="screen3" class="screen page-content"><h1></h1>
+       
+        <h1>Bus Tracker</h1>
+
+<div id=Westbound>
+<div id=Eastbound>
+<div id=Northbound>
+<div id=Southbound>
+
+
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+      <script>
+      /* global $*/
+      
+        $(function() {
+          
+          
+          var apiPassThruUrl = "https://polar-garden-75406.herokuapp.com/apiPassThru.php";
+          
+          var apiEndpoint = "http://ctabustracker.com/bustime/api/v2/getpredictions";
+          
+          
+          $.ajax({
+              url: apiPassThruUrl,
+              dataType: "json",
+              method: 'GET',
+              data: {"apiEndpoint": apiEndpoint,
+                      "key" : "n5vhYbxEaPZH3yG48DtVZcrqW",
+                      "format":"json",
+                      "rt": "152,49",
+                      "stpid": "12525,12571,8417,8195",
+              }
+            }
+            ).done (function (data) {
+              console.log(data["bustime-response"]["prd"]);
+             
+              $.each(data["bustime-response"]["prd"], function(i,v) {
+                  $("#" + v.rtdir).append("Route #" 
+                  + v.rt 
+                  + "<br>"
+                  + "Stop Id: "
+                  + v.stpid
+                  + "<br>"
+                  + "Stopping at: "
+                  + v.stpnm
+                  + "<br>"
+                  + "Predicted Time: "
+                  + v.prdctdn
+                  + " minutes"
+                  + "<br>"
+                  + "<br>"
+                  + "</h2>"
+                );
+              });
+
+            });
+        });
+            
+  
+</script>
+       
         </div>
       </main>
     </div>

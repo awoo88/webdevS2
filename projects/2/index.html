@@ -1,5 +1,6 @@
 <!doctype html>
 <html lang="en">
+
 <head>
   <meta charset="utf-8">
   <title>Bus Tracker App</title>
@@ -11,68 +12,68 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   <meta name="apple-mobile-web-app-title" content="Weather PWA">
   <link rel="apple-touch-icon" href="images/icons/icon-152x152.png">
-   <meta name="msapplication-TileImage" content="images/icons/icon-144x144.png">
+  <meta name="msapplication-TileImage" content="images/icons/icon-144x144.png">
   <meta name="msapplication-TileColor" content="#2F3BA2">
-  </head>
+</head>
+
 <body>
-<h1>Bus Tracker</h1>
+  <h1>Bus Tracker</h1>
 
-<div id=Westbound>
-<div id=Eastbound>
-<div id=Northbound>
-<div id=Southbound>
+  <div id=Westbound>
+    <div id=Eastbound>
+      <div id=Northbound>
+        <div id=Southbound>
 
 
-      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-      <script>
-      /* global $*/
-      
-        $(function() {
-          
-          
-          var apiPassThruUrl = "https://polar-garden-75406.herokuapp.com/apiPassThru.php";
-          
-          var apiEndpoint = "http://ctabustracker.com/bustime/api/v2/getpredictions";
-          
-          
-          $.ajax({
-              url: apiPassThruUrl,
-              dataType: "json",
-              method: 'GET',
-              data: {"apiEndpoint": apiEndpoint,
-                      "key" : "n5vhYbxEaPZH3yG48DtVZcrqW",
-                      "format":"json",
-                      "rt": "152,49",
-                      "stpid": "12525,12571,8417,8195",
-              }
-            }
-            ).done (function (data) {
-              console.log(data["bustime-response"]["prd"]);
-             
-              $.each(data["bustime-response"]["prd"], function(i,v) {
-                  $("#" + v.rtdir).append("Route #" 
-                  + v.rt 
-                  + "<br>"
-                  + "Stop Id: "
-                  + v.stpid
-                  + "<br>"
-                  + "Stopping at: "
-                  + v.stpnm
-                  + "<br>"
-                  + "Predicted Time: "
-                  + v.prdctdn
-                  + " minutes"
-                  + "<br>"
-                  + "<br>"
-                  + "</h2>"
-                );
+          <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+          <script>
+            /* global $*/
+
+            $(function() {
+
+
+              var apiPassThruUrl = "https://polar-garden-75406.herokuapp.com/apiPassThru.php";
+
+              var apiEndpoint = "http://ctabustracker.com/bustime/api/v2/getpredictions";
+
+
+              $.ajax({
+                url: apiPassThruUrl,
+                dataType: "json",
+                method: 'GET',
+                data: {
+                  "apiEndpoint": apiEndpoint,
+                  "key": "n5vhYbxEaPZH3yG48DtVZcrqW",
+                  "format": "json",
+                  "rt": "152,49",
+                  "stpid": "12525,12571,8417,8195",
+                }
+              }).done(function(data) {
+                console.log(data["bustime-response"]["prd"]);
+
+                $.each(data["bustime-response"]["prd"], function(i, v) {
+                  $("#" + v.rtdir).append("Route #" +
+                    v.rt +
+                    "<br>" +
+                    "Stop Id: " +
+                    v.stpid +
+                    "<br>" +
+                    "Stopping at: " +
+                    v.stpnm +
+                    "<br>" +
+                    "Predicted Time: " +
+                    v.prdctdn +
+                    " minutes" +
+                    "<br>" +
+                    "<br>" +
+                    "</h2>"
+                  );
+                });
+
               });
-
             });
-        });
-            
-  
-</script>
- 
+          </script>
+
 </body>
+
 </html>

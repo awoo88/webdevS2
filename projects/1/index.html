@@ -53,7 +53,7 @@
                  
                 var url = baseUrl + "?api-key=" + "f71b33db84cc40ce993b022c33403b12";
                 
-                //console.log(url);
+                console.log(url);
              $("#btnSearch").on("click", function(){
                  var searchTerm=$("#txtQuery").val();
                  url=url+"&query="+searchTerm
@@ -63,7 +63,7 @@
                        console.log(data);
                        nytData = data;
                           $.each(data.results, function (index, value) {
-                                //console.log(value.snippet);
+                                console.log(value.snippet);
                                 $("p1").remove()
                                 $("h3").remove()
                                 $("img").remove()
