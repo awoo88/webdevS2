@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width">
+	<title>repl.it</title>
+	<style>
+		#backgroundgame {
+			border: 5px solid black;
+			background-image: url('http://i.ebayimg.com/images/i/282185606813-0-1/s-l1000.jpg');
+			height: "500px";
+			width: "1000px";
+		}
+		
+		#Luffy {
+			display: none;
+		}
+		
+		#cannonball {
+			display: none;
+		}
+		
+		#treasureChest {
+			display: none;
+		}
+	</style>
+</head>
+
+<body>
+
+	<canvas id="backgroundgame" src="https://s19.postimg.org/il26yyr03/parallax-background.jpg" width="1000" height="500">
+    
+  </canvas>
+
+	<div id='lives'></div>
+	<div id='record'></div>
+	<div id='level'></div>
+	<img id="Luffy" src="https://d304k3mn1nwj0a.cloudfront.net/one_piece/Monkey-D-Luffy-1.png" height="50" width="50">
+	<img id="cannonball" src="https://hydra-media.cursecdn.com/ark.gamepedia.com/thumb/f/fd/Cannon_Ball.png/128px-Cannon_Ball.png?version=a5082de0dd0b62c7dbe0e1c1ef3fb945" height="50" width="50">
+	<img id="treasureChest" src="http://www.free-emoticons.com/files/objects-emoticons/11907.png" height="50" width="50">
+
+	<script>
+		window.onload = function() {
+			var livesRemaining = 5;
+			var record = 0;
+			var level = 1;
+			var paused = false;
+			var player = {
+				x: 0,
+				y: 0,
+				costume: "",
+				speed: 1
+			};
+			var harm = {
+				x: 0,
+				y: 0,
+				costume: "",
+				speed: 1
+			};
+			var benefit = {
+				x: 0,
+				y: 0,
+				costume: "",
+				speed: 1
+			};
+			/*
+      
+			  main animation loop
+			*/
+
+			var c = document.getElementById("backgroundgame");
+			var ctx = c.getContext("2d");
+			var image = document.getElementById("Luffy");
+			var LuffyX = 0
+			var LuffyY = 100
+
+
+
+			var harmer = document.getElementById("cannonball");
+			harm.x = 250
+			harm.y = Math.floor(Math.random() * 300)
+
+			var benefiter = document.getElementById("treasureChest");
+			benefit.x = 300
+			benefit.y = Math.floor(Math.random() * 300)
+
+			function animate() {
+
+
+				ctx.clearRect(0, 0, c.width, c.height);
+				// update harm and benefit y coordinates
+				harm.x = harm.x - 1;
+				benefit.x = benefit.x - 1;
+				// draw background
+
+				//  draw player
+				ctx.drawImage(image, LuffyX, LuffyY, 100, 100);
+				// draw harm 
+				ctx.drawImage(harmer, harm.x, harm.y, 100, 100);
+				// check for and handle edge condition
+				if (harm.x < 0) {
+					harm.x = c.width;
+				}
+				// check for and handle harm collision
+				if (Math.abs(harm.y - LuffyY) < 128 && LuffyX === harm.x) {
+					livesRemaining = livesRemaining - 1
+					$('#lives').empty()
+					$('#lives').append('Lives Remaining: ' + livesRemaining)
+				}
+
+				if (livesRemaining <= 0) {
+					$('#lives').empty()
+					$('#record').empty()
+					$('#level').empty()
+					$('#lives').append('GAME OVER!')
+				}
+				// draw benefit
+				ctx.drawImage(benefiter, benefit.x, benefit.y, 100, 100)
+					// check for and handle edge condition
+				if (benefit.x < 0) {
+					benefit.x = c.width;
+				}
+				// check for benefit collision
+				if (Math.abs(benefit.y - LuffyY) < 128 && LuffyX === benefit.x) {
+					record = record + 100;
+					$('#record').empty()
+					$('#record').append('Score: ' + record)
+				}
+				// draw text (lives and score)
+
+
+
+				//  if the game has not been paused, 
+				if (!paused) {
+					requestAnimationFrame(animate);
+				}
+				else {
+
+
+
+				}
+
+
+			}
+			animate();
+
+			document.addEventListener("keydown", move)
+
+			function move(e) {
+				//ctx.clearRect(0,0,c.width,c.height);
+
+				if (e.keyCode == 40) {
+					LuffyY = LuffyY + 3
+				}
+				if (e.keyCode == 38) {LuffyY = LuffyY - 3
+				}
+
+			}
+
+
+
+
+		};
+
+		//  event handler for moving player
+		//    use onKeyPress event, and change the player.y value based on the up/down keys
+	</script>
+
+
+</body>
+
+</html>
